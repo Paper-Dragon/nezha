@@ -53,12 +53,12 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Log in to the AliyunCS
-        uses: docker/login-action@master
-        with:
-          registry: registry.cn-shanghai.aliyuncs.com
-          username: ${{ secrets.ALI_USER }}
-          password: ${{ secrets.ALI_PAT }}
+      # - name: Log in to the AliyunCS
+      #   uses: docker/login-action@master
+      #   with:
+      #     registry: registry.cn-shanghai.aliyuncs.com
+      #     username: ${{ secrets.ALI_USER }}
+      #     password: ${{ secrets.ALI_PAT }}
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
