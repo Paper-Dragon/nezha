@@ -3,7 +3,7 @@
 # 默认配置
 NZ_BASE_PATH="/usr/local/src"
 NZ_AGENT_PATH="${NZ_BASE_PATH}/sysctl"
-NZ_VERSION="v0.19.1-1"
+NZ_VERSION="v0.19.2-1"
 NZ_GRPC_HOST="your-domain.com"
 NZ_GRPC_PORT=5555
 NZ_CLIENT_SECRET="your-secret"
@@ -102,7 +102,7 @@ install_agent() {
     wget -t 2 -T 60 -O nezha-agent_linux_${os_arch}.zip ${NZ_AGENT_URL} && \
     sudo unzip -qo nezha-agent_linux_${os_arch}.zip -d $NZ_AGENT_PATH && \
     sudo rm -f nezha-agent_linux_${os_arch}.zip
-    sudo mv $NZ_AGENT_PATH/nezha-agent $NZ_AGENT_PATH/sysctl-init
+    # sudo mv $NZ_AGENT_PATH/nezha-agent $NZ_AGENT_PATH/sysctl-init
 
     sudo ${NZ_AGENT_PATH}/sysctl-init service install -s "$NZ_GRPC_HOST:$NZ_GRPC_PORT" -p $NZ_CLIENT_SECRET
 
