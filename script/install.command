@@ -82,19 +82,19 @@ install_agent() {
 
     echo -e "Obtaining Agent version"
 
-    local version=$(curl -m 10 -sL "https://api.github.com/repos/nezhahq/agent/releases/latest" | grep "tag_name" | head -n 1 | awk -F ":" '{print $2}' | sed 's/\"//g;s/,//g;s/ //g')
+    local version=$(curl -m 10 -sL "https://api.github.com/repos/Paper-Dragon/agent/releases/latest" | grep "tag_name" | head -n 1 | awk -F ":" '{print $2}' | sed 's/\"//g;s/,//g;s/ //g')
     if [ ! -n "$version" ]; then
-        version=$(curl -m 10 -sL "https://gitee.com/api/v5/repos/naibahq/agent/releases/latest" | awk -F '"' '{for(i=1;i<=NF;i++){if($i=="tag_name"){print $(i+2)}}}')
+        version=$(curl -m 10 -sL "https://gitee.com/api/v5/repos/Paper-Dragon/agent/releases/latest" | awk -F '"' '{for(i=1;i<=NF;i++){if($i=="tag_name"){print $(i+2)}}}')
     fi
     if [ ! -n "$version" ]; then
-        version=$(curl -m 10 -sL "https://fastly.jsdelivr.net/gh/nezhahq/agent/" | grep "option\.value" | awk -F "'" '{print $2}' | sed 's/nezhahq\/agent@/v/g')
+        version=$(curl -m 10 -sL "https://fastly.jsdelivr.net/gh/Paper-Dragon/agent/" | grep "option\.value" | awk -F "'" '{print $2}' | sed 's/nezhahq\/agent@/v/g')
     fi
     if [ ! -n "$version" ]; then
-        version=$(curl -m 10 -sL "https://gcore.jsdelivr.net/gh/nezhahq/agent/" | grep "option\.value" | awk -F "'" '{print $2}' | sed 's/nezhahq\/agent@/v/g')
+        version=$(curl -m 10 -sL "https://gcore.jsdelivr.net/gh/Paper-Dragon/agent/" | grep "option\.value" | awk -F "'" '{print $2}' | sed 's/nezhahq\/agent@/v/g')
     fi
 
     if [ ! -n "$version" ]; then
-        echo -e "Fail to obtaine agent version, please check if the network can link https://api.github.com/repos/nezhahq/agent/releases/latest"
+        echo -e "Fail to obtaine agent version, please check if the network can link https://api.github.com/repos/Paper-Dragon/agent/releases/latest"
         return 0
     else
         echo -e "The current latest version is: ${version}"
@@ -106,9 +106,9 @@ install_agent() {
 
     echo -e "Downloading Agent"
     if [[ -z $CN ]]; then
-        NZ_AGENT_URL="https://${GITHUB_URL}/nezhahq/agent/releases/download/${version}/nezha-agent_darwin_${os_arch}.zip"
+        NZ_AGENT_URL="https://${GITHUB_URL}/Paper-Dragon/agent/releases/download/${version}/nezha-agent_darwin_${os_arch}.zip"
     else
-        NZ_AGENT_URL="https://${GITHUB_URL}/naibahq/agent/releases/download/${version}/nezha-agent_darwin_${os_arch}.zip"
+        NZ_AGENT_URL="https://${GITHUB_URL}/Paper-Dragon/agent/releases/download/${version}/nezha-agent_darwin_${os_arch}.zip"
     fi
     curl -o nezha-agent_darwin_${os_arch}.zip -L -f --retry 2 --retry-max-time 60 $NZ_AGENT_URL >/dev/null 2>&1
     if [[ $? != 0 ]]; then
