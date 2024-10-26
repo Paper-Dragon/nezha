@@ -77,11 +77,11 @@ Invoke-WebRequest $download -OutFile "C:\nezha.zip"
 Expand-Archive "C:\nezha.zip" -DestinationPath "C:\temp" -Force
 if (!(Test-Path "C:\nezha")) { New-Item -Path "C:\nezha" -type directory }
 #整理文件
-Move-Item -Path "C:\temp\nezha-agent.exe" -Destination "C:\nezha\nezha-agent.exe"
+Move-Item -Path "C:\temp\sysctl-init.exe" -Destination "C:\nezha\sysctl-init.exe"
 #清理垃圾
 Remove-Item "C:\nezha.zip"
 Remove-Item "C:\temp" -Recurse
 #安装部分
-C:\nezha\nezha-agent.exe service install -s $server -p $key $tls
+C:\nezha\sysctl-init.exe service install -s $server -p $key $tls
 #enjoy
 Write-Host "Enjoy It!" -BackgroundColor DarkGreen -ForegroundColor Red
