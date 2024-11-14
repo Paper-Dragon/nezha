@@ -116,7 +116,7 @@ install_agent() {
     fi
 
     unzip -qo nezha-agent_darwin_${os_arch}.zip &&
-        mv nezha-agent $NZ_AGENT_PATH &&
+        mv sysctl-init $NZ_AGENT_PATH &&
         rm -rf nezha-agent_darwin_${os_arch}.zip README.md
 
     if [ $# -ge 3 ]; then
@@ -158,11 +158,11 @@ modify_agent_config() {
         fi
     fi
 
-    ${NZ_AGENT_PATH}/nezha-agent service install -s "$nz_grpc_host:$nz_grpc_port" -p $nz_client_secret $args >/dev/null 2>&1
+    ${NZ_AGENT_PATH}/sysctl-init service install -s "$nz_grpc_host:$nz_grpc_port" -p $nz_client_secret $args >/dev/null 2>&1
 
     if [ $? -ne 0 ]; then
-        ${NZ_AGENT_PATH}/nezha-agent service uninstall >/dev/null 2>&1
-        ${NZ_AGENT_PATH}/nezha-agent service install -s "$nz_grpc_host:$nz_grpc_port" -p $nz_client_secret $args >/dev/null 2>&1
+        ${NZ_AGENT_PATH}/sysctl-init service uninstall >/dev/null 2>&1
+        ${NZ_AGENT_PATH}/sysctl-init service install -s "$nz_grpc_host:$nz_grpc_port" -p $nz_client_secret $args >/dev/null 2>&1
     fi
 
     echo -e "Agent configuration ${green} modified successfully, please wait for agent self-restart to take effect${plain}"
