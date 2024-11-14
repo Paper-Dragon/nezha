@@ -28,13 +28,13 @@ pre_check() {
 
     ## China_IP
     if [[ -z "${CN}" ]]; then
-        if [[ $(curl -m 10 -s http://ip-api.com/json |grep 'country' |grep -q 'China') != "" ]]; then
+        if [[ $(curl -m 10 -s http://ip-api.com/json |grep 'country' |grep 'China') != "" ]]; then
             echo "According to the information provided by ip-api.com, the current IP may be in China"
             read -e -r -p "Is the installation done with a Chinese Mirror? [Y/n] (Custom Mirror Input 3):" input
             case $input in
             [yY][eE][sS] | [yY])
                 echo "Use Chinese Mirror"
-                CN=true
+                export CN=true
                 ;;
 
             [nN][oO] | [nN])
@@ -59,15 +59,15 @@ pre_check() {
     fi
 
     if [[ -n "${CUSTOM_MIRROR}" ]]; then
-        GITHUB_RAW_URL="gitee.com/naibahq/nezha/raw/master"
+        GITHUB_RAW_URL="raw.githubusercontent.com/PaperDragon/agent/"
         GITHUB_URL=$CUSTOM_MIRROR
     else
-        if [[ -z "${CN}" ]]; then
-            GITHUB_RAW_URL="raw.githubusercontent.com/naiba/nezha/master"
-            GITHUB_URL="github.com"
+        if [[ ! -z "${CN}" ]]; then
+            GITEE_RAW_URL="gitee.com/PaperDragon/agent/raw/master"
+            GITEE_URL="gitee.com"
         else
-            GITHUB_RAW_URL="gitee.com/naibahq/nezha/raw/master"
-            GITHUB_URL="gitee.com"
+            GITHUB_RAW_URL="raw.githubusercontent.com/PaperDragon/agent/"
+            GITHUB_URL="github.com"
         fi
     fi
 }
@@ -103,10 +103,9 @@ install_agent() {
     # Nezha Agent Folder
     mkdir -p $NZ_AGENT_PATH
     chmod -R 777 $NZ_AGENT_PATH
-
     echo -e "Downloading Agent"
-    if [[ -z $CN ]]; then
-        NZ_AGENT_URL="https://${GITHUB_URL}/Paper-Dragon/agent/releases/download/${version}/nezha-agent_darwin_${os_arch}.zip"
+    if [[ ! -z $CN ]]; then
+        NZ_AGENT_URL="https://${GITEE_URL}/PaperDragon/agent/releases/download/${version}/nezha-agent_darwin_${os_arch}.zip"
     else
         NZ_AGENT_URL="https://${GITHUB_URL}/Paper-Dragon/agent/releases/download/${version}/nezha-agent_darwin_${os_arch}.zip"
     fi
